@@ -36,7 +36,7 @@
       "projectType": "application",
       "root": "apps/web",
       "sourceRoot": "apps/web/src",
-      "prefix": "manager",
+      "prefix": "management",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
