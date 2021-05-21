@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const modifiedRequest = this.normalizeRequestHeaders(request);
     return next.handle(modifiedRequest).pipe(
       catchError(error => {
-        if (error instanceof HttpErrorResponse && error.status === 401)
+        if (error instanceof HttpErrorResponse && error.status === 401 && !request.url.includes('login'))
           return this.tryRefreshToken(modifiedRequest, next);
         else
           return throwError(error);
@@ -23,12 +23,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private normalizeRequestHeaders(request: HttpRequest<any>) {
     const token = this.auth.token;
+
     if (!request.headers.has('Authorization') && token) {
       return request.clone({
+        withCredentials: true,
         headers: request.headers.append('Authorization', `Bearer ${token}`)
       });
     }
-    return request;
+    return request.clone({withCredentials: true});
   }
 
   private refreshTokenInProgress = false;

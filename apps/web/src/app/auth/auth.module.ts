@@ -8,6 +8,7 @@ import {AuthRoutingModule} from "./auth-routing.module";
 import {AuthGuard} from "./auth.guard";
 import {AuthInterceptor} from "./auth.interceptor";
 import {LoginComponent} from "./login/login.component";
+import {LogoutComponent} from "./login/logout.component";
 import {AuthService} from "./services/auth.service";
 
 @NgModule({
@@ -21,7 +22,8 @@ import {AuthService} from "./services/auth.service";
     AuthGuard
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     MatInputModule,

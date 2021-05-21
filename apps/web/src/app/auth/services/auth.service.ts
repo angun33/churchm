@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   refresh() {
-    return this.http.post('http://localhost:3333/api/auth/refresh/', {})
+    return this.http.post('http://localhost:3333/api/auth/refresh-token/', {})
       .pipe(
         tap((data:any) => {
           const token = data.access_token;

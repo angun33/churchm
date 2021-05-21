@@ -21,14 +21,23 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.auth.refresh()
+      .subscribe(() => this.router.navigate(['']));
+
     this.loginForm.enable();
+    this.loginForm.reset();
   }
 
   login() {
     const {username, password} = this.loginForm.value;
     this.loginForm.disable();
     this.auth.login(username, password)
-      .subscribe(() => this.router.navigate(['']))
-    ;
+      .subscribe(
+        () => this.router.navigate(['']),
+        () => {
+          this.loginForm.enable();
+          this.loginForm.setErrors({invalid: true});
+        }
+      );
   }
 }

@@ -1,7 +1,7 @@
-
+<div *ngIf="loginForm.errors?.invalid" class="error">Wrong username/password</div>
 <form [formGroup]="loginForm" (ngSubmit)="login()">
   <mat-form-field>
-    <input matInput formControlName="username" placeholder="Username" />
+    <input matInput formControlName="username" placeholder="Username" autocomplete="off" autofocus />
   </mat-form-field>
 
   <mat-form-field>
