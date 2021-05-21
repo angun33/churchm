@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
     if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['login']);
+      this.router.navigate(['login', {'redirectTo': route.url}]);
 
       return false;
     }

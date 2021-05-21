@@ -1,5 +1,6 @@
 <div *ngIf="loginForm.errors?.invalid" class="error">Wrong username/password</div>
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+<form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!isLoadingSession">
   <mat-form-field>
     <input matInput formControlName="username" placeholder="Username" autocomplete="off" autofocus />
   </mat-form-field>
