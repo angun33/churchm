@@ -7,6 +7,15 @@ import {AuthService} from "../services/auth.service";
 
 @Controller('auth')
 export class AuthController {
+  readonly COOKIE_NAME = 'refresh_token';
+
+  private cookieOptions = {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+    secure: environment.production,
+    signed: true
+  };
+
   constructor(@Inject('AUTH_SERVICE') private readonly authService:AuthService) {
   }
 
@@ -20,12 +29,7 @@ export class AuthController {
       req.ip
     );
 
-    res.cookie('refresh_token', token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-      secure: environment.production,
-      signed: true
-    });
+    res.cookie(this.COOKIE_NAME, token, this.cookieOptions);
 
     return {
       access_token: this.authService.login(req.user)
@@ -36,30 +40,26 @@ export class AuthController {
   @Post('refresh-token')
   async refreshToken(@Req() req:Request, @Res({ passthrough: true }) res:Response) {
     const token = await this.authService.refreshToken(
-      req.signedCookies['refresh_token'],
+      req.signedCookies[this.COOKIE_NAME],
       req.header('user-agent'),
       req.ip
     )
 
-    res.cookie('refresh_token', token.refresh, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-      secure: environment.production,
-      signed: true
-    });
+    res.cookie(this.COOKIE_NAME, token.refresh, this.cookieOptions);
 
     return {
       access_token: token.access
     };
   }
 
+  @Public()
   @Get('logout')
-  logout(@Req() req:Request, @Res({ passthrough: true }) res:Response) {
-    this.authService.logout(
+  async logout(@Req() req:Request, @Res({ passthrough: true }) res:Response) {
+    await this.authService.logout(
       req.user,
-      req.signedCookies['refresh_token']
+      req.signedCookies[this.COOKIE_NAME]
     );
 
-    res.clearCookie('refresh_token');
+    res.clearCookie(this.COOKIE_NAME, this.cookieOptions);
   }
 }
