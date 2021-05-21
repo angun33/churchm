@@ -3,6 +3,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {AuthRoutingModule} from "./auth-routing.module";
 import {AuthGuard} from "./auth.guard";
@@ -31,7 +32,8 @@ import {AuthService} from "./services/auth.service";
     AuthRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    MatCardModule
   ]
 })
 export class AuthModule { }
