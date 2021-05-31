@@ -3,9 +3,12 @@ import {ConfigModule} from "@nestjs/config";
 import {APP_GUARD} from "@nestjs/core";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {AuthModule} from "./auth/auth.module";
+import {TokenEntity} from "./auth/entities/token.entity";
+import {UserEntity} from "./auth/entities/user.entity";
 import {JwtAuthGuard} from "./auth/guards/jwt.guard";
-import {TokenEntity} from "./auth/models/token.entity";
-import {UserEntity} from "./auth/models/user.entity";
+import {ClassificationEntity} from "./people/entities/classification.entity";
+import {PersonEntity} from "./people/entities/person.entity";
+import {PeopleModule} from './people/people.module';
 
 let envFilePath = '.env.development';
 if (process.env.ENVIRONMENT === 'production') {
@@ -24,11 +27,12 @@ if (process.env.ENVIRONMENT === 'production') {
       database: process.env.DB_NAME,
       username: process.env.DB_USER,
       password: process.env.DB_PWD,
-      entities: [UserEntity, TokenEntity],
+      entities: [UserEntity, TokenEntity, PersonEntity, ClassificationEntity],
       synchronize: true
     }),
 
-    AuthModule
+    AuthModule,
+    PeopleModule
   ],
   controllers: [],
   providers: [

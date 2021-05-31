@@ -7,13 +7,13 @@ export class TokenEntity {
   @PrimaryColumn({unique: true})
   token: string
 
-  @CreateDateColumn({name: 'created_at'})
+  @CreateDateColumn()
   createdAt: Date
 
-  @Column({name: 'expired_at'})
+  @Column()
   expiredAt: Date
 
-  @Column({name: 'ip_address'})
+  @Column()
   @IsIP()
   ipAddress: string
 

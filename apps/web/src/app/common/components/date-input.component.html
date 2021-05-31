@@ -1,0 +1,11 @@
+<mat-form-field appearance="fill" style="width: 100%">
+  <mat-label>{{label}}</mat-label>
+  <input matInput [formControl]="control" [mask]="dateMask">
+  <input type="hidden" [matDatepicker]="picker" [formControl]="_hiddenControl" />
+
+  <mat-datepicker-toggle matSuffix [for]="picker">
+    <mat-icon matDatepickerToggleIcon>today</mat-icon>
+  </mat-datepicker-toggle>
+
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

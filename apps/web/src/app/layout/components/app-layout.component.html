@@ -1,0 +1,40 @@
+<mat-toolbar color="primary" class="mat-elevation-z3">
+  <div class="page-width main-nav-wrapper">
+    <nav class="main-nav">
+      <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+      <a mat-button routerLink="/people" routerLinkActive="active">People</a>
+    </nav>
+
+    <button mat-button [matMenuTriggerFor]="userMenu">Hi, {{ (authUser$ | async)?.username }}</button>
+    <mat-menu #userMenu>
+      <a mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>Account</span>
+      </a>
+
+      <a routerLink="/logout" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+<header class="page-header">
+  <div class="page-width page-header-wrapper">
+    <div>
+      <h1>{{pageTitle}}</h1>
+      <div class="page-desc" *ngIf="pageDesc">{{pageDesc}}</div>
+    </div>
+
+    <aside class="page-actions">
+      <ng-content select="page-actions"></ng-content>
+    </aside>
+  </div>
+</header>
+
+<ng-content select="page-menu"></ng-content>
+
+<main class="page-width">
+  <ng-content></ng-content>
+</main>

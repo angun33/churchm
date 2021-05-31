@@ -4,8 +4,8 @@ import {randomBytes} from "crypto";
 import {addDays} from "date-fns";
 import {Repository} from "typeorm";
 import {environment} from "../../../environments/environment";
-import {UserEntity} from "../models/user.entity";
-import {TokenEntity} from "../models/token.entity";
+import {UserEntity} from "../entities/user.entity";
+import {TokenEntity} from "../entities/token.entity";
 
 @Injectable()
 export class TokenService {

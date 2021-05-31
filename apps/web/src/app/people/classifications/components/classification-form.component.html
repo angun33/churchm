@@ -1,0 +1,15 @@
+<mat-card class="simple-card">
+  <mat-card-title>{{mode === 'edit' ? 'Edit' : 'New'}} Classification</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Classification Name</mat-label>
+        <input matInput formControlName="name" autofocus />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button color="primary" (click)="save.emit()">Save</button>
+    <button mat-flat-button (click)="reset.emit()" *ngIf="mode === 'edit'">Reset</button>
+  </mat-card-actions>
+</mat-card>

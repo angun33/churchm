@@ -1,0 +1,24 @@
+<app-layout pageTitle="Classifications" pageDesc="Add, edit, and/or re-ordering the display">
+  <page-actions>
+    <button mat-raised-button color="accent" (click)="presenter.showForm()"><mat-icon>add</mat-icon> New Classification</button>
+  </page-actions>
+
+  <page-menu [menus]="menus"></page-menu>
+
+  <div class="mat-card-container narrow">
+    <classifications-ordering
+      [classifications]="classifications$ | async"
+      (reorder)="drop($event)"
+      (delete)="delete($event)"
+      (edit)="presenter.edit($event)"
+    ></classifications-ordering>
+
+    <classification-form
+      *ngIf="(mode$ | async) !== 'closed'"
+      [mode]="mode$ | async"
+      [form]="presenter.form"
+      (reset)="presenter.resetForm()"
+      (save)="presenter.saveForm()"
+    ></classification-form>
+  </div>
+</app-layout>

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {catchError, filter, switchMap, take} from "rxjs/operators";
-import {AuthService} from "./services/auth.service";
+import {AuthService} from "./auth.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -24,10 +24,12 @@ export class AuthInterceptor implements HttpInterceptor {
   private normalizeRequestHeaders(request: HttpRequest<any>) {
     const token = this.auth.token;
 
-    if (!request.headers.has('Authorization') && token) {
+    if (token) {
       return request.clone({
         withCredentials: true,
-        headers: request.headers.append('Authorization', `Bearer ${token}`)
+        headers: request.headers.has('Authorization') ?
+          request.headers.set('Authorization', `Bearer ${token}`) :
+          request.headers.append('Authorization', `Bearer ${token}`)
       });
     }
     return request.clone({withCredentials: true});

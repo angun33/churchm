@@ -1,0 +1,9 @@
+<nav class="page-width">
+  <a mat-button *ngFor="let menu of menus"
+     [routerLink]="menu.link"
+     [routerLinkActive]="menu.options?.activeClass ?? 'active'"
+     [routerLinkActiveOptions]="{ exact: menu.options?.exact }">
+    {{menu.title}}
+  </a>
+  <ng-content></ng-content>
+</nav>

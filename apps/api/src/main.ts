@@ -1,6 +1,7 @@
 import {Logger, ValidationPipe} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 import {NestExpressApplication} from "@nestjs/platform-express";
+import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import * as cookieParser from 'cookie-parser';
 
 import {AppModule} from './app/app.module';
@@ -17,11 +18,27 @@ async function bootstrap() {
     credentials: true
   });
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true
+  }));
 
   // TODO: CSRF/XSRF
   // https://docs.nestjs.com/security/csrf
   // https://github.com/expressjs/csurf
+
+  const config = new DocumentBuilder()
+    .setTitle('Church Management API')
+    .setDescription('The API description')
+    .setVersion('1.0')
+    .addBearerAuth({
+      type: 'apiKey',
+      name: 'JWT Authorization',
+      in: 'header',
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"',
+    })
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

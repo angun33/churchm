@@ -1,10 +1,12 @@
 import {Controller, Get, Inject, Post, Req, Res, UseGuards} from '@nestjs/common';
+import {ApiTags} from "@nestjs/swagger";
 import {Request, Response} from 'express';
 import {environment} from "../../../environments/environment";
 import {AuthLocalGuard} from "../guards/auth-local.guard";
 import {Public} from "../guards/jwt.guard";
 import {AuthService} from "../services/auth.service";
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   readonly COOKIE_NAME = 'refresh_token';

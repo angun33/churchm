@@ -1,0 +1,21 @@
+.table-container {
+  background-color: #fff;
+  border-radius: 4px;
+
+  table, .mat-paginator {
+    background: transparent;
+  }
+}
+.actions-column {
+  text-align: right;
+  width: 100px;
+
+  a {
+    opacity: .3;
+    transition: all .3s;
+  }
+  a:hover {
+    opacity: .8
+  }
+}
+

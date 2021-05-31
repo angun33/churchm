@@ -1,0 +1,18 @@
+<mat-card class="simple-card">
+  <mat-card-title>Re-order Classifications</mat-card-title>
+  <mat-card-content>
+    <div class="order-container" cdkDropList (cdkDropListDropped)="reorder.emit($event)">
+      <div *ngFor="let classification of classifications" class="classification" cdkDrag [cdkDragData]="classification">
+        <span>{{classification.name}}</span>
+        <div class="actions">
+          <button mat-icon-button (click)="edit.emit(classification)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="_delete(classification)" [matMenuTriggerFor]="confirmMenu"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <mat-menu #confirmMenu (closed)="clearConfirm()">
+      <button mat-menu-item (click)="confirm()"><span class="color-warn">Confirm Delete?</span></button>
+    </mat-menu>
+  </mat-card-content>
+</mat-card>

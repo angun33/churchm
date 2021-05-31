@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import {BehaviorSubject, Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
   private _userSubject:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private _tokenSubject:BehaviorSubject<string> = new BehaviorSubject<string>(null);

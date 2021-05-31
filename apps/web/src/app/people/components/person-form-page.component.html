@@ -1,0 +1,104 @@
+<app-layout [pageTitle]="(isEditMode$ | async) ? 'Edit Person' : 'New Person'"
+            [pageDesc]="(isEditMode$ | async) ? 'Editing a person' : 'Add a new person'">
+  <page-actions>
+    <button mat-raised-button color="accent" (click)="submit()">
+      <mat-icon>save </mat-icon> Save</button>
+  </page-actions>
+
+  <page-menu [menus]="menus"></page-menu>
+
+  <form [formGroup]="formService.form" (ngSubmit)="submit()" class="mat-card-container narrow">
+    <mat-card class="simple-card">
+      <mat-card-title>Personal Details</mat-card-title>
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutGap="10px" style="margin-bottom: 2rem">
+          <mat-form-field appearance="fill" fxFlex="35">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender" required>
+              <mat-option value="male">Male</mat-option>
+              <mat-option value="female">Female</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="30">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+            <mat-hint>Mr, Mrs, Dr, Rev</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10px" style="margin-bottom: 2rem">
+          <mat-form-field appearance="fill" fxFlex="35">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="30">
+            <mat-label>Middle Name</mat-label>
+            <input matInput formControlName="middleName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="35">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <date-input [control]="formService.get('dob')" label="Date of Birth"></date-input>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card formGroupName="contactDetails" class="simple-card">
+      <mat-card-title>Contact Details</mat-card-title>
+      <mat-card-content>
+        <div fxLayout="row" style="margin-bottom: 2rem">
+          <mat-form-field appearance="fill" fxFlex="100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field appearance="fill" fxFlex="40">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput formControlName="mobileNo" />
+            <mat-icon matSuffix>phone_iphone</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="30">
+            <mat-label>Work Number</mat-label>
+            <input matInput formControlName="workNo" />
+            <mat-icon matSuffix>work</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="30">
+            <mat-label>Home Number</mat-label>
+            <input matInput formControlName="homeNo" />
+            <mat-icon matSuffix>home</mat-icon>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="simple-card">
+      <mat-card-title>Classification</mat-card-title>
+      <mat-card-content>
+        <div fxLayout="row">
+          <mat-form-field appearance="fill" fxFlex="100">
+            <mat-label>Classification</mat-label>
+            <mat-select formControlName="classification" [compareWith]="classificationCompare">
+              <mat-option *ngFor="let classification of classifications$ | async" [value]="classification">{{classification.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="simple-card">
+      <button mat-flat-button color="primary" (click)="submit()">Save</button>
+    </mat-card>
+  </form>
+</app-layout>

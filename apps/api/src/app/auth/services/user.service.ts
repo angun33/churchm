@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {genSalt, hash} from "bcrypt";
 import {isEmpty} from "class-validator";
 import {Repository} from "typeorm";
-import {UserEntity} from "../models/user.entity";
+import {UserEntity} from "../entities/user.entity";
 
 @Injectable()
 export class UserService {

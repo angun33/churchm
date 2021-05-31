@@ -1,0 +1,61 @@
+<app-layout pageTitle="People" pageDesc="List of all people">
+  <page-actions>
+    <button mat-icon-button><mat-icon>search</mat-icon></button>
+    <a mat-raised-button color="accent" routerLink="/people/new">
+      <mat-icon>add</mat-icon> New Person
+    </a>
+  </page-actions>
+
+  <page-menu [menus]="menus"></page-menu>
+
+  <div *ngIf="(pagination$ | async) as pagination" class="mat-elevation-z3 table-container">
+    <mat-progress-bar *ngIf="paginatorRef.isLoading$ | async" mode="buffer"></mat-progress-bar>
+    <table mat-table style="width: 100%" [dataSource]="pagination.data">
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <td mat-cell *matCellDef="let person">{{person.firstName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+        <td mat-cell *matCellDef="let person">{{person.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let person">{{person.contactDetails.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mobileNo">
+        <th mat-header-cell *matHeaderCellDef>Mobile No.</th>
+        <td mat-cell *matCellDef="let person">{{person.contactDetails.mobileNo}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="classification">
+        <th mat-header-cell *matHeaderCellDef>Classification</th>
+        <td mat-cell *matCellDef="let person">{{person.classification?.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-column">Actions</th>
+        <td mat-cell *matCellDef="let person" class="actions-column">
+          <a mat-icon-button [routerLink]="['/people/edit', person?.id]"><mat-icon>edit</mat-icon></a>
+          <a mat-icon-button color="warn" [matMenuTriggerFor]="confirmMenu" (click)="delete(person)"><mat-icon>delete</mat-icon></a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columns"></tr>
+    </table>
+    <mat-paginator
+      [pageSize]="pagination.perPage"
+      [pageIndex]="pagination.currentPage - 1"
+      [length]="pagination.total"
+      (page)="log($event)"
+    ></mat-paginator>
+
+    <mat-menu #confirmMenu (closed)="clearConfirm()">
+      <button mat-menu-item class="color-warn" (click)="confirm()">Confirm Delete?</button>
+    </mat-menu>
+  </div>
+</app-layout>
