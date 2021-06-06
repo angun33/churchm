@@ -24,6 +24,7 @@ import {ClassificationsOrderingComponent} from "./classifications/components/cla
 import {ClassificationsPageComponent} from "./classifications/components/classifications-page.component";
 
 import {PeopleListPageComponent} from './components/people-list-page.component';
+import {PeopleListComponent} from "./components/people-list.component";
 import {PersonFormPageComponent} from "./components/person-form-page.component";
 import {PeopleRoutingModule} from "./people-routing.module";
 import {ClassificationsService} from "./classifications/services/classifications.service";
@@ -62,6 +63,7 @@ import {PeopleStore} from "./states/people.store";
   exports: [],
   declarations: [
     PeopleListPageComponent,
+    PeopleListComponent,
     PersonFormPageComponent,
     ClassificationsPageComponent,
     ClassificationFormComponent,
