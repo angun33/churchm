@@ -1,6 +1,6 @@
 import {ApiProperty, ApiPropertyOptional} from "@nestjs/swagger";
 import {Type} from "class-transformer";
-import {IsDate, IsIn, MinLength} from "class-validator";
+import {IsDate, IsIn, MinLength, ValidateIf} from "class-validator";
 import {Gender, Person} from "../entities/person.entity";
 import {ClassificationDto} from "./classification.dto";
 import {ContactDto} from "./contact.dto";
@@ -28,7 +28,8 @@ export class CreatePersonDto implements Omit<Person, 'id'> {
 
   @ApiPropertyOptional()
   @Type(() => Date)
-  @IsDate()
+  @ValidateIf(data => data.dob !== null && data.dob !== '' )
+  @IsDate({message: 'dob is not a correct date format'})
   dob:Date
 
   @ApiPropertyOptional()
