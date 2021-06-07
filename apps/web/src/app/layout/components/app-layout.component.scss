@@ -69,7 +69,7 @@
 
   .active::after {
     background: #f5f5f6;
-    box-shadow: -1px -1px 1px 0px mat.get-color-from-palette($web-primary, 100);
+    box-shadow: -1px -1px 1px 0px mat.get-color-from-palette($web-primary, 200);
     content: '';
     position: absolute;
     width: 10px;
