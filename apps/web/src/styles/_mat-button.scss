@@ -1,0 +1,9 @@
+body.app {
+  .mat-button.mat-button-disabled,
+  .mat-icon-button.mat-button-disabled,
+  .mat-stroked-button.mat-button-disabled,
+  .mat-flat-button.mat-button-disabled,
+  button[disabled] {
+    cursor: not-allowed;
+  }
+}

@@ -24,8 +24,12 @@ export abstract class FormHelperService {
   }
 
   reset(opts?) {
+    // this.iterateAllControls((control:AbstractControl) => {
+    //   // control.markAsPristine(opts);
+    //   // control.markAsUntouched(opts);
+    //   control.setErrors(null, opts);
+    // });
     this.form.reset(undefined, opts);
-    this.form.markAsPristine(opts);
   }
 
   markAllAsTouched() {
@@ -36,19 +40,21 @@ export abstract class FormHelperService {
     this._iterateAllControls(this.form, callback);
   }
 
-  private _iterateAllControls(controls, callback:((FormControl) => void)) {
+  private _iterateAllControls(controls:AbstractControl|FormGroup|FormArray|FormControl, callback:((AbstractControl) => void)) {
     if (controls instanceof FormGroup) {
-      Object.entries(this.form.controls)
+      callback(controls);
+      Object.entries(controls.controls)
         .forEach(([name, control]) =>{
-          console.log({name, status: control.status, isGroup: control instanceof FormGroup})
-          // this._iterateAllControls(control, callback)
-        }
-        )
-    } else if (controls instanceof FormArray) {
-      for (let i = 0; i < controls.length; i++) {
+          this._iterateAllControls(control, callback)
+        })
+    }
+    else if (controls instanceof FormArray) {
+      callback(controls);
+      for (let i = 0; i < controls.controls.length; i++) {
         this._iterateAllControls(controls[i], callback);
       }
-    } else if (controls instanceof FormControl) {
+    }
+    else if (controls instanceof FormControl || controls instanceof AbstractControl) {
       callback(controls);
     }
   }

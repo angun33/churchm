@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/co
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, Subscription} from "rxjs";
-import {filter, map, switchMap} from "rxjs/operators";
+import {filter, finalize, map, switchMap} from "rxjs/operators";
 import {isNotNullAndUndefined} from "../../utils/checks.utils";
 import {ClassificationsQuery} from "../classifications/services/classifications.query";
 import {ClassificationsService} from "../classifications/services/classifications.service";
@@ -22,7 +22,9 @@ import {PeopleStore} from "../states/people.store";
 export class PersonFormPageComponent implements OnInit, OnDestroy {
   public menus = PeoplePageMenus;
   public classifications$:Observable<Classification[]> = this.classificationQuery.selectAll();
-  public isEditMode$:Observable<boolean> = this.query.selectActiveId().pipe(map(isNotNullAndUndefined))
+  public isEditMode$:Observable<boolean> = this.query.selectActiveId().pipe(map(isNotNullAndUndefined));
+  public isProcessing$:Observable<boolean> = this.query.selectLoading();
+
   private subscriptions:Subscription = new Subscription();
 
   constructor(public formService:PeopleFormService,
@@ -37,7 +39,10 @@ export class PersonFormPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.formService.reset();
+
     this.classificationService.get().subscribe();
+
+    // Look for id on url params
     this.subscriptions.add(
       this.route.params
         .pipe(
@@ -51,10 +56,13 @@ export class PersonFormPageComponent implements OnInit, OnDestroy {
         )
     );
 
+    // Load the active person data
     this.subscriptions.add(
       this.query.selectActive()
         .subscribe(person => this.formService.load(person))
     );
+
+    this.store.setLoading(false);
   }
 
   ngOnDestroy() {
@@ -62,22 +70,31 @@ export class PersonFormPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  submit() {
+  submit(formRef) {
+    this.store.setLoading(true);
     if (this.formService.form.status === 'INVALID') {
       this.formService.markAllAsTouched();
+      this.store.setLoading(false);
       return;
     }
 
     const id = this.query.getActiveId();
     if (id) {
       this.service.update(id, this.formService.values)
-        .subscribe(() => {
-          this._notifyAndClear();
-          this.router.navigate(['/people/new'])
-        })
+        .pipe(finalize(() => this.store.setLoading(false)))
+        .subscribe(
+          () => {
+            this._notifyAndClear();
+            this.router.navigate(['/people/new'])
+          }
+        )
     } else {
       this.service.add(this.formService.values)
-        .subscribe(() => this._notifyAndClear())
+        .pipe(finalize(() => this.store.setLoading(false)))
+        .subscribe(() => {
+          formRef.resetForm();
+          this._notifyAndClear()
+        })
     }
   }
 

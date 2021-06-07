@@ -1,13 +1,13 @@
 <app-layout [pageTitle]="(isEditMode$ | async) ? 'Edit Person' : 'New Person'"
             [pageDesc]="(isEditMode$ | async) ? 'Editing a person' : 'Add a new person'">
   <page-actions>
-    <button mat-raised-button color="accent" (click)="submit()">
+    <button mat-raised-button color="accent" (click)="submit(formRef)" [disabled]="isProcessing$ | async">
       <mat-icon>save </mat-icon> Save</button>
   </page-actions>
 
   <page-menu [menus]="menus"></page-menu>
 
-  <form [formGroup]="formService.form" (ngSubmit)="submit()" class="mat-card-container narrow">
+  <form #formRef="ngForm" [formGroup]="formService.form" class="mat-card-container narrow">
     <mat-card class="simple-card">
       <mat-card-title>Personal Details</mat-card-title>
       <mat-card-content>
@@ -98,7 +98,11 @@
     </mat-card>
 
     <mat-card class="simple-card">
-      <button mat-flat-button color="primary" (click)="submit()">Save</button>
+      <button mat-flat-button
+              color="primary"
+              [disabled]="isProcessing$ | async"
+              (click)="submit(formRef)"
+      >Save</button>
     </mat-card>
   </form>
 </app-layout>

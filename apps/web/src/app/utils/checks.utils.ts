@@ -5,3 +5,7 @@ export function isNullOrUndefined(v) {
 export function isNotNullAndUndefined(v) {
   return v !== null && v !== undefined;
 }
+
+export function isEmptyString(v) {
+  return v === null || v === undefined || v === '';
+}
