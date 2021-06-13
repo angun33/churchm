@@ -1,13 +1,35 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use 'sass:map';
 @use '~@angular/material' as mat;
+@use '../app/layout/components/app-layout.theme' as app-layout;
+
+@function replace_color($theme, $newColors) {
+  $color-config: map.get($theme, color);
+  @return map.merge($theme, (color: map.merge($color-config, $newColors)));
+}
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $web-primary: mat.define-palette(mat.$indigo-palette, 500);
 $web-accent: mat.define-palette(mat.$orange-palette, 500, 300, 800);
-
-// The warn palette is optional (defaults to red).
 $web-warn: mat.define-palette(mat.$red-palette);
+$web-background: mat.define-palette(mat.$gray-palette, 100, 50, 200);
+
+$web-light-theme-background-palette: map.merge(
+  mat.$light-theme-background-palette,
+  (
+    app-bar: map.get($web-primary, 500),
+    background: map.get(mat.$grey-palette, 100),
+  )
+);
+$web-light-theme-foreground-palette: map.merge(
+    mat.$light-theme-foreground-palette,
+    (
+      app-bar: map.get($web-primary, 'darker-contrast'),
+    )
+);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -18,11 +40,47 @@ $web-theme: mat.define-light-theme((
     warn: $web-warn,
   )
 ));
+$web-theme: replace_color($web-theme, (
+  background: $web-light-theme-background-palette,
+  foreground: $web-light-theme-foreground-palette
+));
+
 
 $web-accent-theme: mat.define-light-theme((
   color: (
     primary: $web-accent,
     accent: $web-primary,
-    warn: $web-warn,
+    warn: $web-warn
   )
 ));
+$web-accent-theme: replace_color($web-accent-theme, (
+  background: $web-light-theme-background-palette,
+  foreground: $web-light-theme-foreground-palette
+));
+
+@mixin app-root-color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $warn: map.get($color-config, 'warn');
+  $background: map.get($color-config, background);
+
+  body {
+    background-color: map.get($background, 'background');
+  }
+
+  .color-warn {
+    color: mat.get-color-from-palette($warn);
+  }
+}
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($web-theme);
+@include mat.form-field-color($web-accent-theme);
+@include app-root-color($web-theme);
+@include app-layout.color($web-theme);
