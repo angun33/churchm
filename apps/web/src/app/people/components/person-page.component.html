@@ -1,0 +1,14 @@
+<app-layout pageTitle="People" pageDesc="List of all people" >
+  <page-actions>
+    <a mat-raised-button color="accent" routerLink="/people/edit/{{(person$ | async)?.id}}">
+      <mat-icon>edit</mat-icon> Edit
+    </a>
+  </page-actions>
+
+  <page-menu [menus]="menus"></page-menu>
+
+  <div class="mat-card-container narrow" *ngIf="person$ | async">
+    <profile-card [person]="person$ | async"></profile-card>
+  </div>
+
+</app-layout>

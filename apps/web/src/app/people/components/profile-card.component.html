@@ -1,0 +1,41 @@
+<mat-card class="profile">
+  <div class="profile__intro">Hello, My Name Is</div>
+
+  <mat-card-header>
+    <profile-avatar name="{{person.firstName}} {{person.middleName}} {{person.lastName}}" mat-card-avatar></profile-avatar>
+    <mat-card-title>
+      <span class="profile__title">{{person.title}}</span>
+      {{person.firstName}} {{person.middleName}} {{person.lastName}}
+    </mat-card-title>
+    <mat-card-subtitle>{{person.classification.name}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table>
+      <tr>
+        <th>Gender</th>
+        <td>{{person.gender | titlecase}}</td>
+      </tr>
+      <tr>
+        <th>Date of Birth</th>
+        <td>{{person.dob | date:'dd/MM/yyyy'}}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{person.contactDetails.email}}</td>
+      </tr>
+      <tr *ngIf="person.contactDetails.mobileNo">
+        <th>Mobile Number</th>
+        <td>{{person.contactDetails.mobileNo}}</td>
+      </tr>
+      <tr *ngIf="person.contactDetails.workNo">
+        <th>Work Number</th>
+        <td>{{person.contactDetails.workNo}}</td>
+      </tr>
+      <tr *ngIf="person.contactDetails.homeNo">
+        <th>Home Number</th>
+        <td>{{person.contactDetails.homeNo}}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>

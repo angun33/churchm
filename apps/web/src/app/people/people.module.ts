@@ -26,6 +26,9 @@ import {ClassificationsPageComponent} from "./classifications/components/classif
 import {PeopleListPageComponent} from './components/people-list-page.component';
 import {PeopleListComponent} from "./components/people-list.component";
 import {PersonFormPageComponent} from "./components/person-form-page.component";
+import {PersonPageComponent} from "./components/person-page.component";
+import {ProfileAvatarComponent} from "./components/profile-avatar.component";
+import {ProfileCardComponent} from "./components/profile-card.component";
 import {PeopleRoutingModule} from "./people-routing.module";
 import {ClassificationsService} from "./classifications/services/classifications.service";
 import {ClassificationsQuery} from "./classifications/services/classifications.query";
@@ -65,6 +68,9 @@ import {PeopleStore} from "./states/people.store";
     PeopleListPageComponent,
     PeopleListComponent,
     PersonFormPageComponent,
+    PersonPageComponent,
+    ProfileCardComponent,
+    ProfileAvatarComponent,
     ClassificationsPageComponent,
     ClassificationFormComponent,
     ClassificationsOrderingComponent
