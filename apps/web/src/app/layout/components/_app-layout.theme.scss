@@ -3,31 +3,31 @@
 
 @mixin color($theme) {
   $color-config: mat.get-color-config($theme);
-  $web-primary: map.get($color-config, 'primary');
-  $web-accent: map.get($color-config, 'accent');
+  $primary: map.get($color-config, 'primary');
+  $accent: map.get($color-config, 'accent');
 
   .mat-toolbar {
     .mat-button:before {
-      background: mat.get-color-from-palette($web-accent);
+      background: mat.get-color-from-palette($accent);
     }
   }
 
   .page-header {
-    background-color: mat.get-color-from-palette($web-primary, 100);
+    background-color: mat.get-color-from-palette($primary, 100);
   }
 
   .page-menu {
-    background-color: mat.get-color-from-palette($web-accent, 50);
-    border-color: mat.get-color-from-palette($web-accent, 100);
+    background-color: mat.get-color-from-palette($accent, 50);
+    border-color: mat.get-color-from-palette($accent, 100);
 
     .active::after {
       background: #f5f5f6;
-      box-shadow: -1px -1px 1px 0px mat.get-color-from-palette($web-accent, 100);
+      box-shadow: -1px -1px 1px 0px mat.get-color-from-palette($accent, 100);
     }
   }
 
   .mat-raised-button.mat-accent {
-    box-shadow: 0 0.125rem 0.625rem rgba(mat.get-color-from-palette($web-accent) ,0.4),0 0.0625rem 0.125rem rgba(mat.get-color-from-palette($web-accent), 0.5);
+    box-shadow: 0 0.125rem 0.625rem rgba(mat.get-color-from-palette($accent) ,0.4),0 0.0625rem 0.125rem rgba(mat.get-color-from-palette($accent), 0.5);
   }
 }
 

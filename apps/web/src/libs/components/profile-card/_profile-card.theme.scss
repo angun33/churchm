@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+
+@mixin color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, 'primary');
+  $accent: map.get($color-config, 'accent');
+  $background: map.get($color-config, 'background');
+  $foreground: map.get($color-config, 'foreground');
+
+  .profile__intro {
+    background: mat.get-color-from-palette($primary, 500);
+    color: mat.get-contrast-color-from-palette($primary, 500);
+
+    &:after {
+      background: mat.get-color-from-palette($primary, 500);
+      border-top: solid 7px mat.get-color-from-palette($primary, 500);
+      border-right: solid 8px map.get($background, 'card');
+    }
+  }
+
+  .profile__title {
+    color: map.get($foreground, 'secondary-text');
+  }
+
+  profile-card {
+    .mat-card-header {
+      border-bottom: 1px solid map.get($foreground, 'divider');
+    }
+
+    th {
+      color: map.get($foreground, 'secondary-text');
+    }
+  }
+}

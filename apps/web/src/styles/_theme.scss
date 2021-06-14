@@ -3,6 +3,7 @@
 @use 'sass:map';
 @use '~@angular/material' as mat;
 @use '../app/layout/components/app-layout.theme' as app-layout;
+@use '../libs/components/profile-card/profile-card.theme' as profile-card;
 
 @function replace_color($theme, $newColors) {
   $color-config: map.get($theme, color);
@@ -84,3 +85,4 @@ $web-accent-theme: replace_color($web-accent-theme, (
 @include mat.form-field-color($web-accent-theme);
 @include app-root-color($web-theme);
 @include app-layout.color($web-theme);
+@include profile-card.color($web-theme);
