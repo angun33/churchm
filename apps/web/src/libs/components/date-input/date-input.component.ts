@@ -3,7 +3,7 @@ import {AbstractControl, FormControl} from "@angular/forms";
 import {isValid} from "date-fns";
 import {Subscription} from "rxjs";
 import {filter} from "rxjs/operators";
-import {DateMask} from "../directives/masks.utils";
+import {DateMask} from "@web-libs/directives/input-mask/masks.utils";
 
 @Component({
   selector: 'date-input',

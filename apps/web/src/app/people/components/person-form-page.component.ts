@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
+import {isNotNullAndUndefined} from "@web-libs/utils/checks.utils";
 import {Observable, Subscription} from "rxjs";
 import {filter, finalize, map, switchMap} from "rxjs/operators";
-import {isNotNullAndUndefined} from "../../utils/checks.utils";
 import {ClassificationsQuery} from "../classifications/services/classifications.query";
 import {ClassificationsService} from "../classifications/services/classifications.service";
 import {Classification} from "../classifications/services/classifications.store";
@@ -59,6 +59,7 @@ export class PersonFormPageComponent implements OnInit, OnDestroy {
     // Load the active person data
     this.subscriptions.add(
       this.query.selectActive()
+        // @ts-ignore
         .subscribe(person => this.formService.load(person))
     );
 

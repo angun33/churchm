@@ -1,5 +1,5 @@
 import {format, isValid, parse} from "date-fns";
-import {Mask, MaskEvent, ProcessedMask} from "./mask.directive";
+import {Mask, MaskEvent, ProcessedMask} from "./input-mask.directive";
 
 export class DateMask implements Mask {
   /**

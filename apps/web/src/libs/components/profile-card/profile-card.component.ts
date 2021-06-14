@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Person} from "../states/people.store";
+import {Person} from "../../../app/people/states/people.store";
 
 @Component({
   selector: 'profile-card',
@@ -10,6 +10,5 @@ import {Person} from "../states/people.store";
 export class ProfileCardComponent {
   @Input() person:Person;
 
-  constructor() {
-  }
+  constructor() {}
 }

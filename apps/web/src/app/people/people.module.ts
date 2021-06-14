@@ -16,25 +16,23 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
 import {RouterModule} from "@angular/router";
 import {PaginatorPlugin} from "@datorama/akita";
+import {DateInputModule} from "@web-libs/components/date-input/date-input.module";
+import {ProfileCardModule} from "@web-libs/components/profile-card/profile-card.module";
 import {AuthModule} from "../auth/auth.module";
-import {DateInputModule} from "../common/common.module";
 import {AppLayoutModule} from "../layout/layout.module";
 import {ClassificationFormComponent} from "./classifications/components/classification-form.component";
 import {ClassificationsOrderingComponent} from "./classifications/components/classifications-ordering.component";
 import {ClassificationsPageComponent} from "./classifications/components/classifications-page.component";
-
+import {ClassificationsQuery} from "./classifications/services/classifications.query";
+import {ClassificationsService} from "./classifications/services/classifications.service";
+import {ClassificationsStore} from "./classifications/services/classifications.store";
 import {PeopleListPageComponent} from './components/people-list-page.component';
 import {PeopleListComponent} from "./components/people-list.component";
 import {PersonFormPageComponent} from "./components/person-form-page.component";
 import {PersonPageComponent} from "./components/person-page.component";
-import {ProfileAvatarComponent} from "./components/profile-avatar.component";
-import {ProfileCardComponent} from "./components/profile-card.component";
 import {PeopleRoutingModule} from "./people-routing.module";
-import {ClassificationsService} from "./classifications/services/classifications.service";
-import {ClassificationsQuery} from "./classifications/services/classifications.query";
-import {ClassificationsStore} from "./classifications/services/classifications.store";
-import {PeopleQuery} from "./states/people.query";
 import {PeopleService} from "./services/people.service";
+import {PeopleQuery} from "./states/people.query";
 import {PeopleStore} from "./states/people.store";
 
 @NgModule({
@@ -43,6 +41,8 @@ import {PeopleStore} from "./states/people.store";
     AppLayoutModule,
 
     AuthModule,
+    DateInputModule,
+    ProfileCardModule,
 
     MatCardModule,
     MatDatepickerModule,
@@ -61,7 +61,6 @@ import {PeopleStore} from "./states/people.store";
     HttpClientModule,
     CommonModule,
     RouterModule,
-    DateInputModule,
   ],
   exports: [],
   declarations: [
@@ -69,8 +68,6 @@ import {PeopleStore} from "./states/people.store";
     PeopleListComponent,
     PersonFormPageComponent,
     PersonPageComponent,
-    ProfileCardComponent,
-    ProfileAvatarComponent,
     ClassificationsPageComponent,
     ClassificationFormComponent,
     ClassificationsOrderingComponent

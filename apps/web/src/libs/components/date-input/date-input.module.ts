@@ -3,9 +3,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
+import {InputMaskModule} from "@web-libs/directives/input-mask/input-mask.module";
 
-import {DateInputComponent} from './components/date-input.component';
-import {InputMaskDirective} from "./directives/mask.directive";
+import {DateInputComponent} from './date-input.component';
 
 @NgModule({
   imports: [
@@ -14,18 +14,10 @@ import {InputMaskDirective} from "./directives/mask.directive";
     MatIconModule,
 
     ReactiveFormsModule,
+
+    InputMaskModule
   ],
-  exports: [
-    DateInputComponent,
-    InputMaskDirective
-  ],
-  declarations: [
-    DateInputComponent,
-    InputMaskDirective
-  ],
-  providers: [],
+  exports: [ DateInputComponent ],
+  declarations: [ DateInputComponent ],
 })
-export class DateInputModule {
-}
-
-
+export class DateInputModule {}

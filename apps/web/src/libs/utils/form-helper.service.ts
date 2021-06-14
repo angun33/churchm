@@ -24,11 +24,6 @@ export abstract class FormHelperService {
   }
 
   reset(opts?) {
-    // this.iterateAllControls((control:AbstractControl) => {
-    //   // control.markAsPristine(opts);
-    //   // control.markAsUntouched(opts);
-    //   control.setErrors(null, opts);
-    // });
     this.form.reset(undefined, opts);
   }
 
