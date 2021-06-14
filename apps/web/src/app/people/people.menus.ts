@@ -1,4 +1,4 @@
-import {PageMenu} from "../layout/components/page-menu.component";
+import {PageMenu} from "@web-libs/components/layout/page-menu.component";
 
 export const PeoplePageMenus:PageMenu[] = [
   {

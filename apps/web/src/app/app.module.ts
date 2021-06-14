@@ -5,11 +5,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NG_ENTITY_SERVICE_CONFIG, NgEntityServiceGlobalConfig} from '@datorama/akita-ng-entity-service';
 import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
+import {AppLayoutModule} from "@web-libs/components/layout/layout.module";
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from './app.component';
 import {AuthModule} from "./auth/auth.module";
-import {AppLayoutModule} from "./layout/layout.module";
 import {HomeComponent} from './pages/home.component';
 import {PageNotFoundComponent} from './pages/page-not-found.component';
 

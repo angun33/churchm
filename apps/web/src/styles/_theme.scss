@@ -2,7 +2,7 @@
 // For more information: https://material.angular.io/guide/theming
 @use 'sass:map';
 @use '~@angular/material' as mat;
-@use '../app/layout/components/app-layout.theme' as app-layout;
+@use '../libs/components/layout/app-layout.theme' as app-layout;
 @use '../libs/components/profile-card/profile-card.theme' as profile-card;
 
 @function replace_color($theme, $newColors) {

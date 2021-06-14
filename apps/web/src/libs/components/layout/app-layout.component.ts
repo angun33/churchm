@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {AuthService} from "../../auth/auth.service";
+import {AuthService} from "../../../app/auth/auth.service";
 
 @Component({
   selector: 'app-layout',

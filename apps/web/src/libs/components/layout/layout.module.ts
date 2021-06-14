@@ -6,9 +6,9 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {RouterModule} from "@angular/router";
 
-import {AppLayoutComponent} from './components/app-layout.component';
-import {PageActions} from "./components/page-actions.directive";
-import {PageMenuComponent} from "./components/page-menu.component";
+import {AppLayoutComponent} from './app-layout.component';
+import {PageActions} from "./page-actions.directive";
+import {PageMenuComponent} from "./page-menu.component";
 
 @NgModule({
   imports: [
